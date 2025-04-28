@@ -1,4 +1,4 @@
-﻿within ;
+within ;
 package Cardiovascular
   model System
 
@@ -1539,7 +1539,7 @@ package Cardiovascular
           discrete Bodylight.Types.Time Tvs;
           parameter Bodylight.Types.Time Tav(displayUnit="s") = 0.01
             "atrioventricular delay";
-          discrete Modelica.SIunits.Time HP(start=0) "heart period";
+          discrete Modelica.Units.SI.Time HP(start=0) "heart period";
           Boolean b(start=false);
           Bodylight.Types.RealIO.FrequencyInput HR "heart rate" annotation (
              Placement(transformation(extent={{-12,68},{28,108}}),
@@ -6773,11 +6773,13 @@ Pspt=e*Pesspt+(1-e)*Pedspt;
                 parameter Real Exp "dp = base * Q^Exp ";
                 parameter Boolean closed = false;
                 parameter Real FrenchGauge = 10 "Outer diameter for computation of shear stress";
-                parameter Modelica.SIunits.Thickness wallThickness = 0.8e-3 "For shear stress calculation only";
+                parameter Modelica.Units.SI.Thickness wallThickness=0.8e-3
+                  "For shear stress calculation only";
                 parameter Real relativeViscosity = 1 "Transformation from water to blood";
-                Modelica.SIunits.Diameter innerD = FrenchGauge / 3 * 1e-3 - 2*wallThickness;
-                parameter Modelica.SIunits.Length l = 1;
-                Modelica.SIunits.ShearStress shearStress = dp*innerD/l/4;
+                Modelica.Units.SI.Diameter innerD=FrenchGauge/3*1e-3 - 2*
+                    wallThickness;
+                parameter Modelica.Units.SI.Length l=1;
+                Modelica.Units.SI.ShearStress shearStress=dp*innerD/l/4;
               //   Real qs=cIn.q^2;
               //   Real dps=dp^2;
               equation
@@ -13961,9 +13963,9 @@ above 0 mmHg.")}));
       end FrequencyControl;
     end Constants;
 
-    type Area = Modelica.SIunits.Area (displayUnit="cm2",nominal=1e-4)
+    type Area = Modelica.Units.SI.Area(displayUnit="cm2",nominal=1e-4)
       "Type for area";
-    type Length = Modelica.SIunits.Length (displayUnit="cm",nominal=1e-2)
+    type Length = Modelica.Units.SI.Length(displayUnit="cm",nominal=1e-2)
       "Type for length and radius";
     type PulseShape = enumeration(
         pulseless,
@@ -14755,6 +14757,5 @@ above 0 mmHg.")}));
           __Dymola_Algorithm="Cvode"));
     end MergedSmith;
   end Visualization;
-  annotation (uses(Physiolibrary(version="2.3.2-beta"), Modelica(version=
-            "3.2.3")));
+  annotation (uses(Modelica(version="4.0.0"), Bodylight(version="1.0")));
 end Cardiovascular;
